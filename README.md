@@ -25,7 +25,13 @@ Information zu MarkDown bieten folgende Seiten:
 -  [Formatieren von Text mit Markdown](https://support.zendesk.com/hc/de/articles/203691016-Formatieren-von-Text-mit-Markdown)
    veröffentlicht auf _support.zendesk.com_
    
+ 
+##  Über die Struktur des  Projekt  `java-tutorial`
+
+- Das Tutorial gliedert sich in Lerneinheiten (engl _units_).
+  Dementsprechend gibt es einen Ordner `units`, der alle Lerneinheiten als Unterordner enthält.
   
+- Für jede Lerneinheit 
    
 
 
