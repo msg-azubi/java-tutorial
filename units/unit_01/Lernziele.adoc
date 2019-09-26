@@ -5,11 +5,10 @@
 .. _Git_-Kommandos kennen,
 ... um ein Repository zu initialisieren?
 ... um eine Quelldatei oder -ordner dem VCS _Git_ zu unterstellen?
-... um eine Quelldatei zu Versionierung?
+... um eine Quelldatei zu versionieren?
 
 . Praktisches Arbeit mit _IntelliJ_
 .. Wie unterstützt _IntelliJ_ das Arbeiten mit _Java_-Quellcode?
-
 ... Über welches Menü lässt einem IntelliJ Projekt eine _Java SDK_ Version zu ordnen?
 ... Wie unterstützt _IntelliJ_ das Refaktoring von _Java_-Code?
 ... Welche Information biete _IntelliJ_ im _Tool Window_ `Structure`,
@@ -24,13 +23,20 @@
 .. Was sind _Member Access Modifier_?
 
 . Code Qualität
-.. Pragmatismen (engl _ pragmatics), auch _Faustregeln_ genannt für die Prograammiersprache _Java_
+.. Pragmatismen (engl _pragmatics_), auch _Faustregeln_ genannt, für die Programmiersprache _Java_
 ... Always override to String
-... Use typesade `enum`
+... Use typesafe `enum`
+
 . Code Analyse
 .. Algorithmen
 ... Was bedeutet _ggT_ und wie arbeitet der Algorithmus?
 ... Was bedeutet _kgV_ und wie arbeitet der Algorithmus?
+
+. Code Refaktoring
+.. Was lernt beim Refaktoring des Codes von _excerise_a mit den Klassen
+   `GanzeZahlen`, `RationaleZahlen` und `ZahlenTest`.
++
+siehe auch
 
 
 Was im folgenden Zitat über die Programmiersprache _Dart_ gesagt wird,
