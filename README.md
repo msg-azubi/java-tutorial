@@ -29,11 +29,36 @@ Information zu MarkDown bieten folgende Seiten:
 ##  Über die Struktur des  Projekt  `java-tutorial`
 
 - Das Tutorial gliedert sich in Lerneinheiten (engl _units_).
-  Dementsprechend gibt es einen Ordner `units`, der alle Lerneinheiten als Unterordner enthält.
   
-- Für jede Lerneinheit 
-   
+  Dementsprechend gibt es einen Ordner `units`, der alle Lerneinheiten als Unterordner enthält.
+  Unter IntelliJ gilt ist der Ordner `units` in der _Project Structure_ als ein _Module_ integriert.
+  
+  IntelliJ Module haben allgemein einen Unterordner `src`, der vor allem den Code zum Kompilieren enthält,
+  so ist es auch hier. 
+  
+ 
+  - Jede Lernunit, `unit_XY`, enthält eine Datei `Lernziele.adoc, 
+    die über die _Lernziele_ der Unit inform
+  
+    Das ist eine Datei im _AsciiDoc_-Format, diese kann wird über
+    das IntelliJ-Plugin _AsciiDoc_ formatiert angesehen werden.
+    
+    
+  - Der Code zu den Lernunits ist im Ordner `units/src` für jede Unit abgelegt.
+    
+        unit_xy/excercise_z/code
+    
+    Für IntelliJ ist der Ordner `units/src` die  _Source Root_ des Modules `units`.
+    (siehe IntelliJ Help: [Folder Categories](https://www.jetbrains.com/help/idea/2019.2/content-roots.html#folder-categories) )
+          
+## Wesentlichen Vorbereitungen zum Arbeiten mit dem `java-tutorial` Projekt
 
+1. Git als VCS installieren.
+2. IntelliJ als IDE installieren.
+
+   a. das IntelliJ-Plugin für _AsciiDoc_ installieren
+   
+Das sind die wesentlichen Voraussetzungen.   
 
 
 
