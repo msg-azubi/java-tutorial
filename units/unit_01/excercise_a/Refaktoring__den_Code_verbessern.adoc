@@ -1,0 +1,312 @@
+
+
+= Refactoring: Den Code verbessern
+
+Als Ausgangsbasis für das Refaktoring nutzen wir
+das Package _code_ mit den Klassen
+`GanzeZahlen`, `RationaleZahlen` und `ZahlenTest`.
+
+Als Einstiegspunkt in den Code verwenden wird
+für die Java Virtuell Machine
+die `main`-Methode  der Klasse `ZahlenTest.main`.
+
+
+Der Body der `main`-Methode ist kurz. Er enthält nur zwei Zeilen.
+
+        ZahlenTest test1 = new ZahlenTest(1, 27, 45);
+        ZahlenTest test2 = new ZahlenTest(2, 6, -9);
+
+Hier beginnt auch unser Refaktoring.
+
+[NOTE]
+====
+Begriffe korrekt verwenden: _formaler Parameter_ versus _aktueller Parameter_,
+auch oft _Argument_ genannt.
+
+* Zur Signatur einer Methode gehört die _Parameterliste_. Parameter sind Variablen,
+denen mit dem Aufruf der Methode ein Wert übergeben wird. Mit der Parameterliste wird angegeben,
+mit welchen Namen ein Parameter in Methodenbody angesprochen wird und von welchen Typ der Parameter ist.
+
+* Der _formale Parameter_ der Signatur bekommt durch den Methodenaufruf den aktuellen Wert für die
+Variable. Damit wird der formale Parameter zum aktuellen Parameter, oft auch _Argument der Methode_
+genannt.
+====
+
+== Refactoring: Verständlichkeit erhöhen in `ZahlenTest.main`
+
+Wir nutzen wir im Klassenkonstruktor für den Paramenter `int zahlentyp` statt
+den Werten `1` oder `2` die definierten Konstanten
+`GANZEZAHLEN` und `RATIONALE ZAHLEN` als Argumente.
+
+        ZahlenTest test1 = new ZahlenTest(GANZEZAHLEN, 27, 45);
+        ZahlenTest test2 = new ZahlenTest(RATIONALEZAHLEN, 6, -9);
+
+== Refactoring: Rename ´anzeige` in `anzeigen`
+
+Wir refaktorieren:
+* an der Klasse `GanzeZahlen` die Instanzmethode `anzeige` in `anzeigen` und
+* an der Klasse `RationaleZahlen` die Instanzmethode `anzeige` in `anzeigen`
+
+Zusätzlich verändern wir  die `anzeigen` Methode wie folgt:
+
+    public void anzeige() {
+        System.out.println(this);
+    }
+
+
+
+Außerdem legen wir an der Klasse `ZahlenTest` eine solche Methode `anzeigen` an.
+
+
+== Refactoring: Always override `toString`.
+
+[quote]
+-----
+Always override `toString`.
+[...] providing a good `toString` implementation
+makes your class much more pleasant to use.
+[...] When practical, to `toString` method should return _all_
+of the information contained in the object. [...] you clearly
+document your intentions [about the used format
+in a comment to the `toString()` method].
+-----
+
+Die generierten Message zeigen, dass es an den Klassen jeweils noch keine `toString()` Methode gibt.
+Wir schreiben diese `toString()` - Methode.
+
+[TIP]
+====
+Es empfiehlt sich die Rückgabe der `toString()` Methode wie eine Standard-Konstruktor aussehen zu lassen.
+
+Ein Standard-Konstruktor enthält typischerweise alle Instanzfelder einer Klasse als Parameter.
+====
+
+Die Klasse `GanzeZahlen` hat lediglich ein Instanzfeld `z`.
+Daher schreiben wir folgende `toString` Methode
+
+    @Override
+    public String toString() {
+        return "GanzeZahlen(" + this.z + ")";
+    }
+
+
+Die Klasse `RationaleZahlen` hat zwei Instanzfeld `zähler` und `nenner`.
+Daher schreiben wir folgende `toString` Methode
+
+    @Override
+    public String toString() {
+        return "RationaleZahlen( Zähler:"   + this.zähler + ", "
+                               + "Nenner: " + this.nenner + " )" ;
+    }
+
+[WARNING]
+====
+Umlaute können in Namen für Variablem und Methoden verwendet werden,
+aber *nicht* in Typennamen, die als Dateinamen gespeicherten.
+
+Da Klassen und Interfaces ihren Namen als Dateinamen für ihre Quelldatei verwenden,.
+können hier Sonderzeichen wie Umlaute jederzeit zu Problemen führen.
+
+Sonderzeichen können nur in Namen verwenden, die innerhalb des Quellcode bleiben.
+Innerhalb des Quellcodes bleiben Variablen-,  Parameternamen und Methodennamen.
+**Aber** selbst, selbst diese Namen können mit Sonderzeichen zu Problemen führen.
+Zum Beispiel kann das Tool *Javadoc* durch Sonderzeichen gestört werden.
+
+Java speichert Quellcode als Unicode im Format UTF-8.
+Bei Dateinamen muss sich Java an den Zeichencode halten, den das Betriebssystem
+auf dem Java läuft, verwendet.
+====
+
+
+== Refaktoring:  Wo fehlt noch eine `toString`-Methode?
+
+Always override `toString`. Wo fehlt noch eine `toString`-Methode?
+* An der Klasse `ZahlenTest`.
+
+Wir schreiben die Methode `toString` sowie die Methode `anzeigen`.
+Wir nutzen die Methode `anzeigen` in der Methode `ZahlenTest.main`
+
+    public static void main(String args[]) {
+        ZahlenTest test1 = new ZahlenTest(ZahlenTyp.GANZEZAHLEN, 27, 45);
+        test1.anzeigen();
+        ZahlenTest test2 = new ZahlenTest(ZahlenTyp.RATIONALEZAHLEN, 6, -9);
+        test1.anzeigen();
+    }
+
+Wir stellen fest, dass Methode `anzeigen` anstatt in der Methode `ZahlenTest.main`
+besser aufgehoben  im Konstruktor von `ZahlenTest` vor den Aufruf `defGanzeZahlen`
+bzw. `defRationaleZahlen`.
+
+== Refactoring: Nenne `GanzeZahlen`um in `GanzeZahl` und `RationaleZahlen` in RationaleZahl`
+
+Aktuell ergeben sich über die Methoden  `anzeigen` bzw. `toString` Ausgabe wie:
+
+    GanzeZahlen(27)
+    RationaleZahlen( Zähler: 3, Nenner: 17 )
+
+Sinnvoll ist ein Refactoring des Klassennamen
+
+* von `GanzeZahlen` zu `GanzeZahl`  und
+* von `RationakeZahlen` zu `RationaleZahl`
+
+
+
+[CAUTION]
+====
+Das Refactoring eines Types wird durch oftmals durch die verwendete IDE unterstützt.
+Zum Beispiel unterstützt _IntelliJ_ das Refactoring
+(siehe dazu den Abschnitt
+link:https://www.jetbrains.com/help/idea/2019.2/refactoring-source-code.html[Refactoring code]
+des IntelliJ Help Kapitels
+link:https://www.jetbrains.com/help/idea/2019.2/working-with-source-code.html[Working with source code]
+)
+
+Das Menu *Refactor > Rename* kann zum Beispiel
+den Typenamen `GanzeZahlen` gegen den Typennamen `GanzeZahl` austauschen.
+Aber ein solches Refaktoring tauscht nicht den Substring `GanzeZahlen` gegen den Substring `GanzeZahl`.
+====
+
+[TIP]
+====
+Es ist sinnvoll nach der Benutzung
+Wenn das Menüs *Refactor > Rename* benutzt wurde, um einen Typ ein neuer Namen zu geben,
+ist es sinnvoll anschließend das Menü *Edit > Find > Replace* aufzurufen
+und eine *Replace*-Aktion zu starten mit den  Optionen _Match Case_ und _Words_.
+Das  *Replace*-Menü kann über das Tastaturkürzel `Ctrl+R` aufgerufen werden.
+====
+
+Mit dem genannten *TIP* können wir zum Beispiel in der Klasse `GanzeZahl` nach Wort
+`GanzeZahlen` suchen und durch `GanzeZahl` ersetzen. Eine Fundstellen sollte in
+der Methode `toString` auftauchen.
+
+== Refaktoring:  Schreibe einen **Javadoc**-Kommentar  an alle `toString` Methoden
+
+Eine kurze Einführung in Javadoc gibt zum Beispiel
+
+* Der Foliensatz
+link:http://www.hs-weingarten.de/~keller/Downloads/grabo/java/DokumentierenMitJavadoc.pdf[Einführung in Javadoc]
+con Johannes Rinn. Veröffentlicht auf der Domain link:http://www.hs-weingarten.de/[wwww.hs-weingarten.de]
+
+* Der Eintrag link:https://de.wikipedia.org/wiki/Javadoc[Javadoc]
+auf link: https://de.wikipedia.org/wiki/Javadoc[de.wikipedia.de]
+
+_IntelliJ_ unterstützt *Javadoc*-Kommentare
+
+
+* Gebe ein `/**` gefolgt von `Return`-Taste, oberhalb der Methoode `toString` ein.
++
+Wir erhalten:
++
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
++
+
+und ergänzen zum Beispiel
+
+    /**
+     *
+     * @return informiert über den Klassennamen und alle vorhandenen Instanzfelder.
+     *         (Hinweis: Das Format der Ausgabe orientiert sich daran wie IntelliJ
+     *         Klassenkonstruktoren formatiert.)
+     *         <br> Ausgabebeispiel: <code>GanzeZahl(27)</code>
+     *
+     */
+    @Override
+    public String toString() {
+        return "GanzeZahl(" + this.z + ")";
+    }
+
+Ein Javadoc- Ausgabebeispiel für die Klasse `RationaleZahlen` wäre
+
+    <code>RationaleZahlen( Z&auml;hler: 5 , Nenner: 7 )</code>
+
+
+* Frage: Warum schreibt man im Javadoc `Z&auml;hler`
+
+== Refaktoring:  Schreibe einen **Javadoc**-Kommentar  an alle Klassen
+
+Schreibe einen **Javadoc**-Kommentar  an alle Klassen
+
+== Refactoring:  Den Kommentar der Methode `kuerzen` ändern
+
+An der Methode  `kuerzen`
+
+    // Da beim Kürzen der Erhalt des ursprünglichen Objektes nicht
+    // erforderlich ist, werden die Änderungen im aktuellen Objekt
+    // durchgeführt und dieses wird auch zurückgegeben
+    public RationaleZahl kuerzen() {
+
+Bevor wir diesen Kommentar in einen Javadoc-Kommentar umwandeln, gibt es noch
+diese Aufgabe
+
+* Probiere die Tastenkombination `Ctrl+Shift+Down`  bzw. `Ctrl+Shift+Up` in _IntelliJ_
+  vor und nach der Umwandlung in eine Javadoc-Kommentar aus.
+
+== Refactoring: Weitere *Javadoc* Kommentare
+
+Gebe allen Klassen, Klassenmethoden
+sowie allen Instanzmethoden, die keine `set` oder `get`-Methode darstellen,
+einen Javadoc-Kommentar.
+
+== Refaktoring: Die Klassen `RationaleZahlen`  refaktorieren
+
+Die Änderung an der Klasse `GanzeZahlen` werden auch an  `RationaleZahlen` durchgeführt:
+
+* Wir refaktoren  `RationaleZahlen` zu `RationaleZahl`
+
+* Schreibe eine `toString` Methode.
+
+Außerdem
+* Benennen die Instanzfelder neu: `zähler`und `nenner`
+
+_IntelliJ_ unterstützt dieses Refaktoring!
+
+
+
+== Genereriere ein Javadoc Referenz
+
+Siehe dazu
+link:https://www.jetbrains.com/help/idea/2019.2/working-with-code-documentation.html#generate-javadoc[Generate a Javadoc reference]
+
+
+== Refaktoring: Wir ersetzen die Klassenkonstanten durch `enum`
+
+[TIP]
+====
+Ein Type repräsentiert einen bestimmten Satz von Werten.
+====
+Wir ersetzen die Klassenkonstanten,
+die als Werte für die Variable `zahlentyp`
+durch `enum`-Werte
+
+Siehe auch
+
+* link:https://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/[Beginner’s Guide to Java eNum – Why and for What should I use Enum? Java Enum Examples]
+  Last Updated on June 30th, 2019 by App Shah  on
+  link:https://crunchify.com/[crunchify.com].
+
+
+Allgemein wird Java Sourcecode zu Bytecode. Bytecode muss man erst dann lernen, wenn man
+die Performanz von Java-Programmen verstehen will und verbessern will.
+Dann ist es nötig den generierten Bytecode zu lesen.
+Das ist  die Aufgabe von Performanz-Spezialist
+
+* Wie sieht der ByteCode für die Java Virtuell Machine aus?
++
+link:https://boyns.blogspot.com/2008/03/java-15-explained-enum.html[Hier]
+wird erklärt, wie der Bytecode für Enums aussieht.
+Veröffentlicht auf
+link:https://boyns.blogspot.com/2008/03/java-15-explained-enum.html[boyns.blogspot.com] im März, 2008.
+
+
+== Genereriere eine neue Javadoc Referenz
+
+Siehe dazu
+link:https://www.jetbrains.com/help/idea/2019.2/working-with-code-documentation.html#generate-javadoc[Generate a Javadoc reference]
+und nutze alle Hinweise in dem Foliensatz
+link:http://www.hs-weingarten.de/~keller/Downloads/grabo/java/DokumentierenMitJavadoc.pdf[Einführung in Javadoc]
+con Johannes Rinn. Veröffentlicht auf der Domain link:http://www.hs-weingarten.de/[wwww.hs-weingarten.de]
