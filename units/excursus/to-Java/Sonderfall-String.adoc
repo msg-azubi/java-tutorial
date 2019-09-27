@@ -1,0 +1,48 @@
+= Sonderfall: String
+
+In Java gilt die Faustregel _built-in Typen_ werden klein geschrieben,
+_user-defined_ Typen werden groß geschrieben. Ein Sonderfall ist hier
+der Typ `String`: `String` wird groß geschrieben, aber es ist kein
+user-defined Typ, sondern ein built-in Typ.
+
+Um von einem user-defined Typen eine neue Instanz zu erzeugen, nutzt man
+den Operator `new` gefolgt vom Klassennamen des user-defined Typen.
+Zum Beispiel:
+
+   GanzeZahl = new GanzeZahl(3);
+
+Die Verwendung des `new` Operators ist bei user-definierten Typen nötig
+um von einem Klassentyp eine neue Instanzen anzulegen. Für den built-in Typ
+`String` is der Aufruf des `new` Operators nicht nötig.
+
+[quote, _Joshua Bloch_ in seinem Buch _Effective Java_ im Abschnitt _Avoid duplicated objects_]
+____
+It is often appropriate to reuse a single object
+instead of creating a new functionally equivalent object
+each time it is needed. Reuse can be both faster and
+more stylish. An object can always be reused if it is _immutable_.
+
+As an extreme example of what not to do, consider this statement:
+
+   // ** Don't Do This **
+   String s = new String("silly");
+
+[...] The argument to the `String` constructor
+`("silly")`is itself a `String` instance,
+functionally identical to all of the objects created
+by the constructor.  If this usage occurs in a loop or
+in a frequently invoked method, millions of `String` instances
+can be created needlessly.
+
+The improved version is simply the following:
+
+   String s = "No longer silly";
+
+This version uses a single `String` instance, rather than
+creating a new one each time it is executed.
+Furthermore, it is guaranteed that the object will be reused
+by any other code running in the same virtual machine
+that happens ti contain the same string literal.
+----
+
+

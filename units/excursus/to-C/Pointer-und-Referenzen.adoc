@@ -1,0 +1,43 @@
+= Exkurs: Pointer und Referenzen
+
+Allgemein gilt
+
+[quote]
+Eine Variable repräsentiert eine Speicheradresse und einen Speichercontainer.
+Die Größe des Speichercontainers ist abhängig von Typ der Variablen.
+
+
+Wir schauen uns dazu _C_-Code an, um die Begriffe _Pointer_ und _Referenz_ zu
+erläutern. Denn in _C_ kann man vom einem built-in Typ
+entweder den Wert an eine Variable übergeben
+oder aber die  Speicheradresse an eine Variable zuweisen.
+Erster wird typischerweise genutzt mit einem Statement
+wie `int   a = 3;` für letzteres ist das Statement
+`int&  b = 6;` ein Beispiel.
+Damit können wir beginnen, um mittels _C_-Code den Unterschied
+zwischen einem Pointer und einer Referenz zu erläutern.
+
+    int   a = 3;      // `a` steht hier für den Wert im Speichercontainer
+    int&  b = 6;      // `&` ist der Adressoperator, dass heißt
+                      // `b` steht hier für die Speicheraddress, dessen
+                      // dessen Container den Wert 6 hält.
+
+    int*  p = b       // `int*` erzeugt einen Pointer auf den Typ int.
+                      //  Ein Pointer ist eine Variable für Speicheradressen
+
+    const int& r = b; // `r` ist eine Konstante für eine Speicheraddress vom Typ int.
+
+
+Der Große unterschied zwischen _Pointer_ und _Referenzen_:
+* Pointer sind mutable (veränderbar), den Pointer sind Variablen für Addressen.
+* Referenzen sind immutable (nicht veränderbar): Denn Referenzen sind Konstanten,
+  die mit einer Adresse initialisiert werden.
+
+
+== More Information
+
+* link:https://softwareengineering.stackexchange.com/questions/284737/const-reference-and-const-pointer-how-do-they-work[const reference and const pointer. How do they work?]
+  at link:https://softwareengineering.stackexchange.com/[softwareengineering.stackexchange.com]
+
+
+
