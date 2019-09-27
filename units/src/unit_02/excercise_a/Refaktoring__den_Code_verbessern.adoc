@@ -1,0 +1,38 @@
+
+
+= Refactoring: Den Code verbessern
+
+Als Ausgangsbasis für das Refaktoring nutzen wir
+das Package _code_ mit den Klassen
+`Blumen`, `Rose`, `Tulpe`, `Nelke` und `BlumenTest`.
+
+Als Einstiegspunkt in den Code verwenden wird
+für die Java Virtuell Machine
+die `main`-Methode  der Klasse `BlumenTest.main`.
+
+
+== Refaktoring: Wir ersetzen die Klassenkonstanten durch `enum`
+
+[TIP]
+====
+Ein Type repräsentiert einen bestimmten Satz von Werten.
+====
+Wir ersetzen die Klassenkonstanten
+durch `enum`-Werte.
+
+Siehe auch
+
+* link:https://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/[Beginner’s Guide to Java eNum – Why and for What should I use Enum? Java Enum Examples]
+  Last Updated on June 30th, 2019 by App Shah  on
+  link:https://crunchify.com/[crunchify.com].
+
+
+== Genereriere eine neue Javadoc Referenz
+
+Nutze alle Hinweise in dem Foliensatz
+link:http://www.hs-weingarten.de/~keller/Downloads/grabo/java/DokumentierenMitJavadoc.pdf[Einführung in Javadoc]
+con Johannes Rinn. Veröffentlicht auf der Domain link:http://www.hs-weingarten.de/[wwww.hs-weingarten.de]
+
+Siehe dazu
+* IntelliJ Help:
+  link:https://www.jetbrains.com/help/idea/2019.2/working-with-code-documentation.html#generate-javadoc[Generate a Javadoc reference]
