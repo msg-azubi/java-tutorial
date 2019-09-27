@@ -15,7 +15,7 @@ Die Verwendung des `new` Operators ist bei user-definierten Typen nötig
 um von einem Klassentyp eine neue Instanzen anzulegen. Für den built-in Typ
 `String` is der Aufruf des `new` Operators nicht nötig.
 
-[quote, _Joshua Bloch_ in seinem Buch _Effective Java_ im Abschnitt _Avoid duplicated objects_]
+[quote, _Joshua Bloch_ in seinem Buch _Effective Java_ im Abschnitt _Avoid duplicated objects_  ]
 ____
 It is often appropriate to reuse a single object
 instead of creating a new functionally equivalent object
@@ -43,6 +43,6 @@ creating a new one each time it is executed.
 Furthermore, it is guaranteed that the object will be reused
 by any other code running in the same virtual machine
 that happens ti contain the same string literal.
-----
+____
 
 
