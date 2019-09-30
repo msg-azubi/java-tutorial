@@ -4,9 +4,9 @@
 
 Als Ausgangsbasis für das Refaktoring nutzen wir
 das Package _code_ mit den Klassen
-`Blumen`, `Rose`, `Tulpe`, `Nelke` und `BlumenTest`.
+`Blume`, `Rose`, `Tulpe`, `Nelke` und `BlumenTest`.
 
-Als Einstiegspunkt in den Code verwenden wird
+Als Einstiegspunkt in den Code verwenden wir
 für die Java Virtuell Machine
 die `main`-Methode  der Klasse `BlumenTest.main`.
 
@@ -15,7 +15,7 @@ die `main`-Methode  der Klasse `BlumenTest.main`.
 
 [TIP]
 ====
-Ein Type repräsentiert einen bestimmten Satz von Werten.
+Ein Typ repräsentiert einen bestimmten Satz von Werten.
 ====
 
 Wir ersetzen die Klassenkonstanten
@@ -44,11 +44,10 @@ Diese Auflistung von Blumensort können sehr gut durch eine `enum` ersetzt werde
     }
 ----
 
-TIP: Nach dieser kleinen Änderung direkt die folgen veranschaulichen: run `BlumenTest.main`
+TIP: Nach dieser kleinen Änderung direkt die Folgen veranschaulichen: run `BlumenTest.main`
 
-Analog dazu führen wir ein `enum Farbe` ein mit den Werten:
 
-==== Konstrukor und Instanzfeld anpassen
+==== Konstruktor und Instanzfeld anpassen
 [source, Java]
 ----
     // Instanzfelder
@@ -59,6 +58,7 @@ Analog dazu führen wir ein `enum Farbe` ein mit den Werten:
         this.farbe = farbe;
     }
 ----
+
 ==== `switch` in `BlumenTest.main`
 [source, Java]
 ----
@@ -76,8 +76,8 @@ Analog dazu führen wir ein `enum Farbe` ein mit den Werten:
 
 ==== Den Konstruktor der Unterklassen anpassen an den neuen Typ `Sorte`
 
-Alle Unterklassen der Klasse `Blume` müssen angepasst werdenm an
-den neuen Typ `Sorte`
+Alle Unterklassen der Klasse `Blume` müssen angepasst werden an
+den neuen Typ `Sorte`.
 
 Beispielhaft wird hier gezeigt wie die Klasse `Tulpe` angepasst wird.
 
@@ -132,6 +132,7 @@ für den Typ `enum Farbe`.
         System.out.print(", von der Farbe " + farbe);
     }
 ----
+
 === Anpassung der `toString` Ausgabe der Werte des Types `enum Farbe`
 
 Es ist üblich, Konstantenname in Großbuchstaben zu schreiben.
@@ -143,8 +144,8 @@ von Farben auch in der Programmausgabe, was aber nicht erwünscht ist.
     Diese Blume ist eine Tulpe, von der Farbe GELB und hat Zwiebeln
     Diese Blume ist eine Nelke, von der Farbe BLAU und ist eine Staude
 
-Die `toString` Ausgabe der Werte eines `enum` Types kann angepasst werden
-und wird hier am Beispiel des Types `enum Farbe` gezeigt.
+Die `toString` Ausgabe der Werte eines `enum` Types kann angepasst werden.
+Hier wird am Beispiel des Types `enum Farbe` gezeigt, wie eine solche Anpassung geschieht.
 
 TIP: Beschreibe in einem kurzen Absatz wie diese Anpassung funktioniert.
 
@@ -170,8 +171,8 @@ TIP: Beschreibe in einem kurzen Absatz wie diese Anpassung funktioniert.
 
 Eine Anpassung der `toString` Ausgabe der Werte des Types `enum Sorte`,
 wie oben für `enum Farbe`, erlaubt uns ein Refactoring in der
-Methode `idenitfizieren`. Die Unterklassen von der Klasse `Blume`
-enthalten diese Methode.
+Methode `idenitfizieren`.Die Definition dieser Methode befindet sich in den Unterklassen
+von der Klasse `Blume`.
 
 Wir zeigen hier beispielhaft die Anpassung in der Unterklasse `Nelke`.
 Der ursprüngliche Code ist:
@@ -192,6 +193,7 @@ Nach dem Refactoring des Methodenkörpers lautet der Code:
     }
 ----
 
+
 === Die `Blume` Klasse um eine `toString`-Methode ergänzen
 
 [source, Java]
@@ -201,6 +203,8 @@ Nach dem Refactoring des Methodenkörpers lautet der Code:
         return "Blume( Sorte: " + this.sorte + ", Farbe: " + this.farbe + " )";
     }
 ----
+
+
 
 == Genereriere eine neue Javadoc Referenz
 
