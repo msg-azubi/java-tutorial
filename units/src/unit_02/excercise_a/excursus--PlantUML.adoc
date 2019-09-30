@@ -1,0 +1,3 @@
+= Exkurs: PlantUML
+
+include::../../../excursus/plantUML/PlantUML-unter-IntelliJ-nutzen.adoc[]

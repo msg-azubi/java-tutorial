@@ -1,0 +1,148 @@
+== PlantUML: Diagramme als Text
+
+Das Projekt der Website link:http://plantuml.com/de/[PlantUML] unterstützt
+auf einfache Weise das Generieren von UML-Diagramme.
+
+PlantUML nutzt eine UML-Diagrammbeschreibung in Text-Form
+und generiert aus dem Text ein UML-Diagramm.
+Jede Diagrammbeschreibung beginnt mit `@startuml` und
+endet mit `@enduml`.
+
+
+== Das IntelliJ_ Plugin _PlantUML integration_
+Das _IntelliJ_ Plugin _PlantUML integration_ unterstützt
+diesen Ansatz.
+* Über das _IntelliJ_ Menu `File > Settings > Plugin` kann
+  das Plugin _PlantUML integration_ installiert werden.
+* Nach dem erforderlichen Restart von `IntelliJ` genügt,
+  im Menu `View > Tool Window` die Aktivierung des
+  `PlantUML` Windows, um eine erst Test des Plugins
+  durchführen zu können.
+
+=== Testen des PlantUML-Plugins
+
+Zuerst testen wir mit einem Sequenz-Diagramm, die
+Installation des Plugins. Anschließend prüfen wir,
+ob das Plugin auf die ausführbare Datei `dot`
+von GraphViz zugreifen kann.
+
+=== Mit Sequenz-Diagramm die Installation des PlantUML-Plugins überprüfen
+
+Lege eine Datei mit der Endung `test_sequence.puml` und
+folgendem Inhalt an.
+
+[source, plantUML]
+----
+@startuml
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Response
+@enduml
+----
+
+Dieser Text ist die PlantUML-Beschreibung für ein Sequence-Diagramm.
+
+Ein Sequence-Diagramm ist eine guter Test, für die PlantUML Installation.
+
+Um die anderen Diagrammarten anzeigen zu können, benötigt die PlantUML Installation
+Zugriff auf Graphviz dot.
+
+
+=== Prüfen, ob GraphViz dot bereits installiert
+
+Wir legen eine dreizeilige Datei `test_dot.puml` an.
+
+[source, PlantUML]
+@startuml
+testdot
+@enduml
+
+Wenn für dies Datei im _PlantUML_ Window von IntelliJ
+angezeigt wird: *Error: No dot executable found*
+
+=== Gebenfalls, GraphViz Dot installieren
+
+Über diesen Link link:https://graphviz.gitlab.io/download/[graphviz.gitlab.io/download/] lässt
+sich _GraphViz_ installieren. (Empfohlendes Verzeichnis für `\dev\env\`).
+
+Wenn _GraphViz_ nicht in das Standard-Verzeichnis installiert wird,
+ist es nötig eine Umgebungsvariable `GRAPHVIZ` anzulegen
+siehe dazu zum Beispiel
+link:https://enterprise-architecture.org/downloads?id=208[GraphViz Instructions]
+@ link:https://enterprise-architecture.org/downloads?id=208[enterprise-architecture.org].
+
+TIP: Neue bzw. veränderte Umgebungsvariablen erfordern eine Restart
+     der _IntelliJ_ IDE.
+
+
+== UML-Diagramm mit PlantUML erstellen
+
+* link:http://plantuml.com/de/class-diagram[Klassendiagramme]
++
+Im IntelliJ wird die Erstellung eines Klassendiagramms, wie folgt unterstützt:
+
+**  Selektiere den Menüpunkt `File > New > PlantUML File`
+    und wählen den Diagramm-Typ `_class_  bzw _object_.
+
+
+[TIP]
+====
+Erklären den Unterschied zwischen _Klasse_ und _Objekt_.
+Wie unterscheidet sich die Syntax von beiden in PlantUML.
+====
+
+== Resources
+ * Die Website link:http://plantuml.com/de/[PlantUML] listet die UML-Diagramme auf,
+   für die PlantUML eine Syntax anbietet, die die PlantUML-Enginee als Diagramm
+   wiedergeben bzw. in eine Diagramm übersetzen kann  (engl. _rendering_).
+
+ * Die  Kolumne
+   link:https://jaxenter.de/hitchhikers-guide-docs-code-diagramme-66357[Hitchhiker’s Guide to Docs-As-Code: Diagramme, aber richtig…]
+   von  Gernot Starke und Ralf D. Müller, veröffentlicht im Januar 2018 auf link:https://jaxenter.de/[Jaxenter],
+   beschreibt allgemein das Einbinden von Diagrammen in die Dokumentation eines Softwareprojektes.
+   Dabei wird auch auf PlantUML eingegangen.
+
+
+=== Die Usage Information von PlantUML
+
+
+[source]
+----
+Usage:
+- Open file, put the cursor inside of the PlantUML code to render it
+- PlantUML code must be inside @startuml and @enduml tags to be rendered
+- To render other than sequence diagram types, install Graphviz and set path to it
+
+- A new file can be created from template (File | New | PlantUML File)
+- PlantUML code can be placed anywhere, '*' are ignored for usage in Java comments
+- About screen tests Graphviz installation
+
+Intentions (Alt+Enter):
+- reverse arrow
+- with a caret on top of @startuml:
+ - disable syntax check
+ - enable partial rendering - renders each page on it's own, useful for big sequence diagram files
+
+Performance tips:
+- disable automatic rendering and use Update (Alt+D) or Reload (Alt+F) buttons
+- do not put @newpage into included files (it prohibits incremental rendering)
+- try to enable partial rendering
+- disable syntax checking
+- tune cache size in settings, make sure you have enough heap memory (enable Memory Indicator)
+
+Other supported PlantUML features:
+- @startuml <filename> - changes default filename when saving/exporting
+- Settings | PlantUML config - useful for global 'skinparam' command
+----
+
+
+
+
+
+
+
+
+
+
