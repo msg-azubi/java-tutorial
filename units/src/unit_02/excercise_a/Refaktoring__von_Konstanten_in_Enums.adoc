@@ -1,0 +1,213 @@
+
+
+= Refactoring: Den Code verbessern
+
+Als Ausgangsbasis für das Refaktoring nutzen wir
+das Package _code_ mit den Klassen
+`Blumen`, `Rose`, `Tulpe`, `Nelke` und `BlumenTest`.
+
+Als Einstiegspunkt in den Code verwenden wird
+für die Java Virtuell Machine
+die `main`-Methode  der Klasse `BlumenTest.main`.
+
+
+== Refaktoring: Wir ersetzen die Klassenkonstanten durch `enum`
+
+[TIP]
+====
+Ein Type repräsentiert einen bestimmten Satz von Werten.
+====
+
+Wir ersetzen die Klassenkonstanten
+durch `enum`-Werte.
+
+Siehe auch
+
+* link:https://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/[Beginner’s Guide to Java eNum – Why and for What should I use Enum? Java Enum Examples]
+  Last Updated on June 30th, 2019 by App Shah  on
+  link:https://crunchify.com/[crunchify.com].
+
+=== Führe das Enum `Sorte` ein
+
+Diese Konstanten präsentieren Blumensorten:
+[source, Java]
+----
+    protected final static int ROSE = 0;
+    protected final static int TULPE = 1;
+    protected final static int NELKE = 2;
+----
+Diese Auflistung von Blumensort können sehr gut durch eine `enum` ersetzt werden.
+[source, Java]
+----
+    protected enum Sorte {
+        ROSE, TULPE, NELKE
+    }
+----
+
+TIP: Nach dieser kleinen Änderung direkt die folgen veranschaulichen: run `BlumenTest.main`
+
+Analog dazu führen wir ein `enum Farbe` ein mit den Werten:
+
+==== Konstrukor und Instanzfeld anpassen
+[source, Java]
+----
+    // Instanzfelder
+    protected Sorte sorte;
+    // Konstruktordefinition
+    Blume(Sorte sorte, String farbe) {
+        this.sorte = sorte;
+        this.farbe = farbe;
+    }
+----
+==== `switch` in `BlumenTest.main`
+[source, Java]
+----
+            switch (blumen[i].sorte) {
+                case ROSE:
+                    ((Rose)blumen[i]).wurzeln();
+                    break;
+                case TULPE:
+                    ((Tulpe)blumen[i]).zwiebeln();
+                    break;
+                case NELKE:
+                    ((Nelke)blumen[i]).stauden();
+            }
+----
+
+==== Den Konstruktor der Unterklassen anpassen an den neuen Typ `Sorte`
+
+Alle Unterklassen der Klasse `Blume` müssen angepasst werdenm an
+den neuen Typ `Sorte`
+
+Beispielhaft wird hier gezeigt wie die Klasse `Tulpe` angepasst wird.
+
+[source, Java]
+----
+    Tulpe() {
+        super(Sorte.TULPE, GELB);
+    }
+----
+
+
+In Hinblick darauf, dass wir auch ein `enum Farbe` einführen wollen,
+schreiben wir gleich
+
+[source, Java]
+----
+    Tulpe() {
+        super(Sorte.TULPE, Farbe.GELB);
+    }
+----
+
+bevor wir das `enum Farbe` eingeführt haben.
+
+Diese  Anpassungen sind noch für alle anderen Unterklassen von `Blume` nötig:
+`Rose` und `Nelke`.
+
+=== Einführung des Types `enum Farbe` in der Klasse `Blume`
+
+Hier Ausschnitte aus der Klasse `Blume`,
+um zu verdeutlichen welche Anpassungen nötig sind
+für den Typ `enum Farbe`.
+
+[source, Java]
+----
+    // Aufzähltypen
+
+    protected enum Farbe {
+        ROT, GELB, BLAU
+    }
+
+    // Instanzfelder
+    protected Farbe farbe;
+
+    // Konstruktordefinition
+    Blume(Sorte sorte, Farbe farbe) {
+        this.sorte = sorte;
+        this.farbe = farbe;
+    }
+
+    // Methodendefinitionen
+    public void farbe() {
+        System.out.print(", von der Farbe " + farbe);
+    }
+----
+=== Anpassung der `toString` Ausgabe der Werte des Types `enum Farbe`
+
+Es ist üblich, Konstantenname in Großbuchstaben zu schreiben.
+
+Durch die Einführung des Types `enum Farbe` haben wir diese Großschreibung
+von Farben auch in der Programmausgabe, was aber nicht erwünscht ist.
+
+    Diese Blume ist eine Rose, von der Farbe ROT und hat Wurzeln
+    Diese Blume ist eine Tulpe, von der Farbe GELB und hat Zwiebeln
+    Diese Blume ist eine Nelke, von der Farbe BLAU und ist eine Staude
+
+Die `toString` Ausgabe der Werte eines `enum` Types kann angepasst werden
+und wird hier am Beispiel des Types `enum Farbe` gezeigt.
+
+TIP: Beschreibe in einem kurzen Absatz wie diese Anpassung funktioniert.
+
+[source, Java]
+----
+    protected enum Farbe {
+        ROT("rot"), GELB("gelb"), BLAU("blau");
+
+        private String name;
+
+        private Farbe(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return this.name;
+        }
+    }
+----
+
+=== Anpassung der `toString` Ausgabe der Werte des Types `enum Sorte`
+
+Eine Anpassung der `toString` Ausgabe der Werte des Types `enum Sorte`,
+wie oben für `enum Farbe`, erlaubt uns ein Refactoring in der
+Methode `idenitfizieren`. Die Unterklassen von der Klasse `Blume`
+enthalten diese Methode.
+
+Wir zeigen hier beispielhaft die Anpassung in der Unterklasse `Nelke`.
+Der ursprüngliche Code ist:
+[source, Java]
+----
+    public void identifizieren() {
+        super.identifizieren();
+        System.out.print("Nelke");
+    }
+----
+
+Nach dem Refactoring des Methodenkörpers lautet der Code:
+[source, Java]
+----
+    public void identifizieren() {
+        super.identifizieren();
+        System.out.print(this.sorte);
+    }
+----
+
+=== Die `Blume` Klasse um eine `toString`-Methode ergänzen
+
+[source, Java]
+----
+    @Override
+    public String toString() {
+        return "Blume( Sorte: " + this.sorte + ", Farbe: " + this.farbe + " )";
+    }
+----
+
+== Genereriere eine neue Javadoc Referenz
+
+Nutze alle Hinweise in dem Foliensatz
+link:http://www.hs-weingarten.de/~keller/Downloads/grabo/java/DokumentierenMitJavadoc.pdf[Einführung in Javadoc]
+con Johannes Rinn. Veröffentlicht auf der Domain link:http://www.hs-weingarten.de/[wwww.hs-weingarten.de]
+
+Siehe dazu
+* IntelliJ Help:
+  link:https://www.jetbrains.com/help/idea/2019.2/working-with-code-documentation.html#generate-javadoc[Generate a Javadoc reference]
