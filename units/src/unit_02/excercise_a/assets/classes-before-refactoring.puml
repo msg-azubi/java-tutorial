@@ -1,0 +1,46 @@
+@startuml
+
+abstract class Blume
+
+
+Blume <|-- Rose
+Blume <|-- Tulpe
+Blume <|-- Nelke
+
+class Blume {
+// Blumensorten, implizit
+protected final static int ROSE = 0;
+protected final static int TULPE = 1;
+protected final static int NELKE = 2;
+
+// Farben, implizit
+protected final static String ROT = "rot";
+protected final static String GELB = "gelb";
+protected final static String BLAU = "blau";
+
+//Instanzfelder
+int blume
+String farbe
+public void farbe()
+public void identifizieren()
+}
+
+
+
+class Rose {
+public void identifizieren()
+public void wurzeln()
+}
+
+class Tulpe {
+public void identifizieren()
+public void zwiebeln()
+}
+
+class Nelke {
+public void identifizieren()
+public void stauden()
+}
+
+center footer excercise_a von unit_02 vor dem Refaktoring
+@enduml

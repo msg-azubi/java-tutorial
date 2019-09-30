@@ -1,0 +1,56 @@
+@startuml
+
+abstract class Blume
+
+
+Blume <|-- Rose
+Blume <|-- Tulpe
+Blume <|-- Nelke
+
+class Blume {
+// Blumensorte, explizit als Typ
+protected enum Sorte
+
+// Farbe, explizit als Typ
+protected enum Farbe
+
+// Instanzfelder
+Sorte sorte
+Farbe farbe
+public String toString()
+public void farbe()
+public void identifizieren()
+}
+
+
+enum Sorte {
+ROSE
+TULPE
+NELKE
+public String toString()
+}
+
+enum Farbe {
+ROT
+GELB
+BLAU
+public String toString()
+}
+
+class Rose {
+public void identifizieren()
+public void wurzeln()
+}
+
+class Tulpe {
+public void identifizieren()
+public void zwiebeln()
+}
+
+class Nelke {
+public void identifizieren()
+public void stauden()
+}
+
+center footer excercise_a von unit_02 nach dem Refaktoring
+@enduml
