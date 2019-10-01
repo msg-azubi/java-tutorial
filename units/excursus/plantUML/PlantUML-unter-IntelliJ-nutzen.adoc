@@ -68,7 +68,7 @@ angezeigt wird: *Error: No dot executable found*
 sich _GraphViz_ installieren. (Empfohlendes Verzeichnis für `\dev\env\`).
 
 Wenn _GraphViz_ nicht in das Standard-Verzeichnis installiert wird,
-ist es nötig eine Umgebungsvariable `GRAPHVIZ` anzulegen
+ist es nötig eine Umgebungsvariable `GRAPHVIZ_DOT` anzulegen
 siehe dazu zum Beispiel
 link:https://enterprise-architecture.org/downloads?id=208[GraphViz Instructions]
 @ link:https://enterprise-architecture.org/downloads?id=208[enterprise-architecture.org].
