@@ -6,7 +6,7 @@ public class BlumenTest {
         Blume[] blumen = new Blume[]{new Rose(), new Tulpe(),
                 new Nelke()};
         for(int i = 0; i<3; i++) {
-// Die Methode der Unterklasse wird aufgerufen
+// Die @Override-Methode der Unterklasse wird aufgerufen
             (blumen[i]).identifizieren();
 // Die Methode der Oberklasse wird aufgerufen
             (blumen[i]).farbe();
