@@ -28,17 +28,17 @@ public void identifizieren()
 
 
 class Rose {
-public void identifizieren()
+@Override public void identifizieren()
 public void wurzeln()
 }
 
 class Tulpe {
-public void identifizieren()
+@Override public void identifizieren()
 public void zwiebeln()
 }
 
 class Nelke {
-public void identifizieren()
+@Override public void identifizieren()
 public void stauden()
 }
 
