@@ -1,6 +1,16 @@
 @startuml
 
-abstract class Blume
+class Blume
+note left of Blume: Ziel des Refaktorings: \nKonstanten durch Enum-Werte \nersetzen. Aufzählungen werden \ndurch Enums `type-safe`, d.h.\nder Compiler kann nun die Werte \npräzise überprüfen.\n\nAus\n\tint blume\nwird\n\tSorte sorte\nund aus \n\tString farbe\nwird\n\tFarbe farbe.
+note right of Blume: Die Klasse Blume ist die Oberklasse \n(engl. super class) zu den Klassen \nRose, Tulpe und Nelke.
+
+note "Die Methode `identifizieren` wird\nin der Oberklasse definiert und\nin der Unterklasse überschrieben.\n\nDie Unterklassen können jederzeit\neiner Variablen vom Typ der Oberklasse \nzugeordnet werden.\n\n\tBlume[] blumen = new Blume[]{\n\t\tnew Rose(), new Tulpe(),new Nelke()};" as TheOverride
+Blume .. TheOverride
+
+note "Diese sind die Unterklassen (engl. sub classes): Rose, Tulpe und Nelke.\n\nDie Unterklassen können jederzeit einer Variablen vom Typ der Oberklasse zugeordnet werden.\nAllerdings brauchen Methoden, die nur in der Unterklasse bekannt sind, beim Aufruf eine Unterstützung:\n\n\t (Rose) blume[i].wurzeln() \n\t (Nelke) blume[i].stauden() \n\t (Tulpe) blume[i].zwiebeln() \n\nDie Unterstützung ist ein `Casting` der Oberklasse auf die spezifische Unterklasse. " as TheSubClasses
+Rose  .. TheSubClasses
+Nelke .. TheSubClasses
+Tulpe .. TheSubClasses
 
 
 Blume <|-- Rose
@@ -42,5 +52,5 @@ class Nelke {
 public void stauden()
 }
 
-center footer excercise_a von unit_02 vor dem Refaktoring
+center footer excercise_a von unit_02 vor dem Refaktoring: `Konstanten durch Enum-Werte ersetzen`.
 @enduml

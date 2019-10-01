@@ -2,7 +2,12 @@
 
 abstract class Blume
 
+note "Die toString Methoden erlauben,\ndie Stringausgabe anzupassen. \n\nDamit man z. B. `Rose` ausgeben kann, \nstatt `ROSE`." as TheToStringOfEnum
+Sorte .. TheToStringOfEnum
+Farbe .. TheToStringOfEnum
 
+note left of Blume: Warum die Enum-Typen sowie die Instanzfelder \nprotected sind?\n\tWeil die Konstruktoren der Unterklassen\n\tdiese benötigen.
+note top of Sorte: Jeder Enum-Type hat eine Methode `values()`, \ndie seine Werte in einem Array ausgibt.
 Blume <|-- Rose
 Blume <|-- Tulpe
 Blume <|-- Nelke
@@ -38,19 +43,19 @@ public String toString()
 }
 
 class Rose {
-public void identifizieren()
+@Override public void identifizieren()
 public void wurzeln()
 }
 
 class Tulpe {
-public void identifizieren()
+@Override public void identifizieren()
 public void zwiebeln()
 }
 
 class Nelke {
-public void identifizieren()
+@Override public void identifizieren()
 public void stauden()
 }
 
-center footer excercise_a von unit_02 nach dem Refaktoring
+center footer excercise_a von unit_02 nach dem Refaktoring: `Konstanten durch Enum-Werte ersetzen`.
 @enduml
